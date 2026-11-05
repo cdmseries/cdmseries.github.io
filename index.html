@@ -53,7 +53,7 @@
             margin-top: 4px;
         }
 
-        /* --- LOWERCASE & PROPORTIONAL DISTORTION TITLE --- */
+        /* --- LOWERCASE TITLE WITH DEEPER WAVE DISTORTION --- */
         .title {
             font-family: 'Space Grotesk', sans-serif;
             font-size: 26px;
@@ -63,13 +63,13 @@
             line-height: 1;
             user-select: none;
             filter: url(#wave-distortion);
-            animation: micro-jitter 0.15s infinite alternate;
+            animation: micro-jitter 0.12s infinite alternate;
         }
 
         @keyframes micro-jitter {
             0% { transform: translate(0, 0); }
-            50% { transform: translate(-0.4px, 0.4px); }
-            100% { transform: translate(0.4px, -0.4px); }
+            50% { transform: translate(-0.6px, 0.6px); }
+            100% { transform: translate(0.6px, -0.6px); }
         }
 
         /* --- LOCATION WITH HOVER TOOLTIP --- */
@@ -107,7 +107,7 @@
             background: rgba(15, 15, 15, 0.95);
             border: 1px solid rgba(255, 0, 0, 0.4);
             color: #fff;
-            padding: 6px 12px;
+            padding: 5px 12px;
             border-radius: 6px;
             font-size: 10px;
             white-space: nowrap;
@@ -176,46 +176,48 @@
             font-size: 11px;
         }
 
+        /* Red text & higher transparency audio button */
         .audio-player {
             display: flex;
             align-items: center;
             gap: 6px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 3px 9px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            padding: 3px 10px;
             border-radius: 16px;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: all 0.2s ease;
         }
 
         .audio-player:hover {
-            background: rgba(255, 0, 0, 0.15);
-            border-color: rgba(255, 0, 0, 0.3);
+            background: rgba(255, 0, 0, 0.12);
+            border-color: rgba(255, 0, 0, 0.4);
         }
 
         .audio-player svg {
-            width: 10px;
-            height: 10px;
+            width: 9px;
+            height: 9px;
             fill: #ff0000;
         }
 
         .audio-label {
-            font-size: 9px;
-            color: #aaa;
+            font-size: 10px;
+            color: #ff0000;
             letter-spacing: 0.5px;
             user-select: none;
+            opacity: 0.85;
         }
     </style>
 </head>
 <body>
 
-    <!-- SVG Displacement Filter for Wave Distortion -->
+    <!-- SVG Displacement Filter for Deeper Horizontal Wave Distortion -->
     <svg style="position: absolute; width: 0; height: 0;" aria-hidden="true">
         <filter id="wave-distortion">
-            <feTurbulence type="fractalNoise" baseFrequency="0.01 0.3" numOctaves="2" result="noise">
-                <animate attributeName="baseFrequency" dur="0.2s" values="0.01 0.3;0.01 0.4;0.01 0.25;0.01 0.3" repeatCount="indefinite" />
+            <feTurbulence type="fractalNoise" baseFrequency="0.008 0.45" numOctaves="3" result="noise">
+                <animate attributeName="baseFrequency" dur="0.18s" values="0.008 0.45;0.008 0.55;0.008 0.38;0.008 0.45" repeatCount="indefinite" />
             </feTurbulence>
-            <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="9" xChannelSelector="R" yChannelSelector="G" />
         </filter>
     </svg>
 
@@ -231,7 +233,7 @@
                     tel aviv
                 </div>
                 <div class="tooltip-box">
-                    Live Broadcast Node // TLV-01
+                    Location
                 </div>
             </div>
         </div>
@@ -289,7 +291,7 @@
                 audio.play().then(() => {
                     isPlaying = true;
                     audioLabel.textContent = "pause audio";
-                    playIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect>';
+                    playIcon.innerHTML = '<rect x="6" y="4" width="3" height="16"></rect><rect x="15" y="4" width="3" height="16"></rect>';
                 }).catch(e => {
                     console.error("Playback failed:", e);
                     alert("Unable to play audio. Ensure 'dirtymagazines.mp3' is uploaded in your repository root.");
