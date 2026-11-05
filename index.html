@@ -62,3 +62,234 @@
             user-select: none;
             position: relative;
             animation: glitch-anim 3s infinite steps(1);
+        }
+
+        @keyframes glitch-anim {
+            0% { transform: translate(0) }
+            20% { transform: translate(-2px, 1px); text-shadow: 2px 0 #00ffcc, -2px 0 #ff0055; }
+            21% { transform: translate(0) }
+            60% { transform: translate(1px, -1px); }
+            75% { transform: translate(-1px, 2px); text-shadow: -2px -2px #00ffcc, 2px 2px #ff0055; }
+            76% { transform: translate(0); text-shadow: none; }
+            100% { transform: translate(0) }
+        }
+
+        /* --- LOCATION WITH HOVER TOOLTIP --- */
+        .location-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-top: 14px;
+            cursor: pointer;
+        }
+
+        .location {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #ff1a1a;
+            font-size: 11px;
+            letter-spacing: 0.5px;
+            opacity: 0.9;
+        }
+
+        .location svg {
+            width: 10px;
+            height: 10px;
+            fill: #ff1a1a;
+        }
+
+        .tooltip-box {
+            position: absolute;
+            bottom: 130%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: rgba(15, 15, 15, 0.95);
+            border: 1px solid rgba(255, 26, 26, 0.4);
+            color: #fff;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 11px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            pointer-events: none;
+            text-align: center;
+        }
+
+        .tooltip-box::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 5px;
+            border-style: solid;
+            border-color: rgba(15, 15, 15, 0.95) transparent transparent transparent;
+        }
+
+        .location-wrapper:hover .tooltip-box {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* --- FOOTER & AUDIO CONTROLS --- */
+        .footer {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .viewers {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #ff1a1a;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .red-dot {
+            width: 5px;
+            height: 5px;
+            background-color: #ff1a1a;
+            border-radius: 50%;
+            box-shadow: 0 0 6px #ff1a1a;
+        }
+
+        .eye-icon {
+            width: 14px;
+            height: 14px;
+            fill: none;
+            stroke: #ff1a1a;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        #count {
+            margin-left: 2px;
+            font-size: 13px;
+        }
+
+        .audio-player {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 4px 10px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .audio-player:hover {
+            background: rgba(255, 26, 26, 0.15);
+            border-color: rgba(255, 26, 26, 0.3);
+        }
+
+        .audio-player svg {
+            width: 12px;
+            height: 12px;
+            fill: #ff1a1a;
+        }
+
+        .audio-label {
+            font-size: 10px;
+            color: #aaa;
+            letter-spacing: 0.5px;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="center-content">
+            <h1 class="title">seriesii</h1>
+            
+            <div class="location-wrapper">
+                <div class="location">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                    </svg>
+                    tel aviv
+                </div>
+                <div class="tooltip-box">
+                    Live Broadcast Node // TLV-01
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="viewers">
+                <span class="red-dot"></span>
+                <svg class="eye-icon" viewBox="0 0 24 24">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+                <span id="count">0</span>
+            </div>
+
+            <div class="audio-player" id="audioToggle">
+                <svg id="playIcon" viewBox="0 0 24 24">
+                    <polygon points="5,3 19,12 5,21"></polygon>
+                </svg>
+                <span class="audio-label" id="audioLabel">play audio</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden HTML5 Audio Element -->
+    <audio id="bgAudio" loop>
+        <source src="audio.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // Dynamic Live Counter Effect
+        let currentCount = 0;
+        const countElement = document.getElementById('count');
+
+        function updateViewers() {
+            const change = Math.floor(Math.random() * 3) - 1;
+            currentCount = Math.max(3, currentCount + change);
+            countElement.textContent = currentCount;
+            
+            const nextCheck = Math.floor(Math.random() * 4000) + 4000;
+            setTimeout(updateViewers, nextCheck);
+        }
+
+        setTimeout(updateViewers, 4000);
+
+        // Audio Play/Pause Toggle Logic
+        const audio = document.getElementById('bgAudio');
+        const toggleBtn = document.getElementById('audioToggle');
+        const playIcon = document.getElementById('playIcon');
+        const audioLabel = document.getElementById('audioLabel');
+        
+        let isPlaying = false;
+
+        toggleBtn.addEventListener('click', () => {
+            if (!isPlaying) {
+                audio.play().then(() => {
+                    isPlaying = true;
+                    audioLabel.textContent = "pause audio";
+                    playIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect>';
+                }).catch(e => {
+                    console.log("Audio file missing or blocked:", e);
+                    alert("Ensure 'audio.mp3' is placed in your repository root!");
+                });
+            } else {
+                audio.pause();
+                isPlaying = false;
+                audioLabel.textContent = "play audio";
+                playIcon.innerHTML = '<polygon points="5,3 19,12 5,21"></polygon>';
+            }
+        });
+    </script>
+</body>
+</html>
