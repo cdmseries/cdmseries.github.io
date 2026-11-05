@@ -1,4 +1,4 @@
-y<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -19,7 +19,6 @@ y<!DOCTYPE html>
             justify-content: center;
             align-items: center;
             background-color: #050505;
-            /* Replace with your background image path if needed */
             background-image: radial-gradient(circle at center, rgba(30, 30, 30, 0.4) 0%, rgba(5, 5, 5, 0.95) 100%), url('yeyeyye.png');
             background-size: cover;
             background-position: center;
@@ -30,8 +29,8 @@ y<!DOCTYPE html>
         .card {
             width: 90%;
             max-width: 520px;
-            height: 190px;
-            background: rgba(22, 22, 22, 0.65);
+            height: 220px;
+            background: rgba(22, 22, 22, 0.60);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border-radius: 20px;
@@ -50,119 +49,16 @@ y<!DOCTYPE html>
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            margin-top: 10px;
+            margin-top: 5px;
         }
 
+        /* --- GLITCH / TV EFFECT --- */
         .title {
             font-family: 'VT323', monospace;
-            font-size: 42px;
+            font-size: 46px;
             color: #ff1a1a;
             letter-spacing: -1px;
             line-height: 1;
             user-select: none;
-            text-shadow: 0 0 10px rgba(255, 26, 26, 0.3);
-        }
-
-        .location {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: #ff1a1a;
-            font-size: 11px;
-            margin-top: 12px;
-            letter-spacing: 0.5px;
-            opacity: 0.9;
-        }
-
-        .location svg {
-            width: 10px;
-            height: 10px;
-            fill: #ff1a1a;
-        }
-
-        .footer {
-            width: 100%;
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-        }
-
-        .viewers {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: #ff1a1a;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
-        .red-dot {
-            width: 5px;
-            height: 5px;
-            background-color: #ff1a1a;
-            border-radius: 50%;
-            box-shadow: 0 0 6px #ff1a1a;
-        }
-
-        .eye-icon {
-            width: 14px;
-            height: 14px;
-            fill: none;
-            stroke: #ff1a1a;
-            stroke-width: 2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-
-        #count {
-            margin-left: 2px;
-            font-size: 13px;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="card">
-        <div class="center-content">
-            <h1 class="title">seriesii</h1>
-            <div class="location">
-                <!-- Clean SVG Pin -->
-                <svg viewBox="0 0 24 24">
-                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                </svg>
-                tel aviv
-            </div>
-        </div>
-
-        <div class="footer">
-            <div class="viewers">
-                <span class="red-dot"></span>
-                <!-- Clean SVG Eye -->
-                <svg class="eye-icon" viewBox="0 0 24 24">
-                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                    <circle cx="12" cy="12" r="3"></circle>
-                </svg>
-                <span id="count">0</span>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Dynamic Live Counter Effect
-        let currentCount = 0;
-        const countElement = document.getElementById('count');
-
-        function updateViewers() {
-            // Randomly fluctuate count by -1, 0, or +1 every 4-8 seconds
-            const change = Math.floor(Math.random() * 3) - 1;
-            currentCount = Math.max(3, currentCount + change); // Never drop below 3
-            countElement.textContent = currentCount;
-            
-            const nextCheck = Math.floor(Math.random() * 4000) + 4000;
-            setTimeout(updateViewers, nextCheck);
-        }
-
-        setTimeout(updateViewers, 4000);
-    </script>
-</body>
-</html>
+            position: relative;
+            animation: glitch-anim 3s infinite steps(1);
