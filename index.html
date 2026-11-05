@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>seriesii</title>
-    <!-- Loaded Impact / Heavy Sans-Serif font -->
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <style>
         * {
             box-sizing: border-box;
@@ -27,16 +26,17 @@
             overflow: hidden;
         }
 
+        /* --- WIDER AND SHORTER CARD DIMENSIONS --- */
         .card {
-            width: 90%;
-            max-width: 520px;
-            height: 220px;
-            background: rgba(22, 22, 22, 0.60);
+            width: 85%;
+            max-width: 620px;
+            height: 150px;
+            background: rgba(22, 22, 22, 0.65);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border-radius: 20px;
+            border-radius: 16px;
             border: 1px solid rgba(255, 255, 255, 0.07);
-            padding: 24px 32px;
+            padding: 16px 28px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -50,56 +50,53 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            margin-top: 10px;
+            margin-top: 4px;
         }
 
-        /* --- HEAVY SANS-SERIF WITH HIGH-FREQ WAVE DISTORTION --- */
+        /* --- LOWERCASE & PROPORTIONAL DISTORTION TITLE --- */
         .title {
-            font-family: 'Anton', sans-serif;
-            font-size: 42px;
-            font-weight: 400;
-            text-transform: uppercase;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 26px;
+            font-weight: 700;
             color: #ff0000;
-            letter-spacing: 2px;
+            letter-spacing: -0.5px;
             line-height: 1;
             user-select: none;
-            /* Applies the dynamic SVG high-frequency turbulence wave */
             filter: url(#wave-distortion);
-            /* Small continuous micro-jitter */
             animation: micro-jitter 0.15s infinite alternate;
         }
 
         @keyframes micro-jitter {
             0% { transform: translate(0, 0); }
-            50% { transform: translate(-0.5px, 0.5px); }
-            100% { transform: translate(0.5px, -0.5px); }
+            50% { transform: translate(-0.4px, 0.4px); }
+            100% { transform: translate(0.4px, -0.4px); }
         }
 
-        /* --- LOCATION WITH HOVER TOOLTIP & RED GLOW --- */
+        /* --- LOCATION WITH HOVER TOOLTIP --- */
         .location-wrapper {
             position: relative;
             display: inline-block;
-            margin-top: 18px;
+            margin-top: 10px;
             cursor: pointer;
         }
 
         .location {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             color: #ff0000;
             font-family: 'Inter', sans-serif;
-            font-size: 15px;
+            font-size: 11px;
             font-weight: 400;
             letter-spacing: 0.2px;
-            opacity: 0.95;
+            opacity: 0.9;
         }
 
         .location svg {
-            width: 16px;
-            height: 16px;
+            width: 11px;
+            height: 11px;
             fill: #ff0000;
-            filter: drop-shadow(0 0 6px rgba(255, 0, 0, 0.8));
+            filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.8));
         }
 
         .tooltip-box {
@@ -110,9 +107,9 @@
             background: rgba(15, 15, 15, 0.95);
             border: 1px solid rgba(255, 0, 0, 0.4);
             color: #fff;
-            padding: 8px 14px;
-            border-radius: 8px;
-            font-size: 11px;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 10px;
             white-space: nowrap;
             opacity: 0;
             visibility: hidden;
@@ -128,7 +125,7 @@
             top: 100%;
             left: 50%;
             transform: translateX(-50%);
-            border-width: 5px;
+            border-width: 4px;
             border-style: solid;
             border-color: rgba(15, 15, 15, 0.95) transparent transparent transparent;
         }
@@ -150,23 +147,23 @@
         .viewers {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
             color: #ff0000;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
         }
 
         .red-dot {
-            width: 5px;
-            height: 5px;
+            width: 4px;
+            height: 4px;
             background-color: #ff0000;
             border-radius: 50%;
-            box-shadow: 0 0 6px #ff0000;
+            box-shadow: 0 0 5px #ff0000;
         }
 
         .eye-icon {
-            width: 14px;
-            height: 14px;
+            width: 12px;
+            height: 12px;
             fill: none;
             stroke: #ff0000;
             stroke-width: 2;
@@ -176,17 +173,17 @@
 
         #count {
             margin-left: 2px;
-            font-size: 13px;
+            font-size: 11px;
         }
 
         .audio-player {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 4px 10px;
-            border-radius: 20px;
+            padding: 3px 9px;
+            border-radius: 16px;
             cursor: pointer;
             transition: background 0.2s;
         }
@@ -197,13 +194,13 @@
         }
 
         .audio-player svg {
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             fill: #ff0000;
         }
 
         .audio-label {
-            font-size: 10px;
+            font-size: 9px;
             color: #aaa;
             letter-spacing: 0.5px;
             user-select: none;
@@ -212,19 +209,19 @@
 </head>
 <body>
 
-    <!-- SVG Displacement Filter for High-Frequency Wave Distortion -->
+    <!-- SVG Displacement Filter for Wave Distortion -->
     <svg style="position: absolute; width: 0; height: 0;" aria-hidden="true">
         <filter id="wave-distortion">
-            <feTurbulence type="fractalNoise" baseFrequency="0.01 0.35" numOctaves="2" result="noise">
-                <animate attributeName="baseFrequency" dur="0.2s" values="0.01 0.35;0.01 0.45;0.01 0.30;0.01 0.35" repeatCount="indefinite" />
+            <feTurbulence type="fractalNoise" baseFrequency="0.01 0.3" numOctaves="2" result="noise">
+                <animate attributeName="baseFrequency" dur="0.2s" values="0.01 0.3;0.01 0.4;0.01 0.25;0.01 0.3" repeatCount="indefinite" />
             </feTurbulence>
-            <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G" />
         </filter>
     </svg>
 
     <div class="card">
         <div class="center-content">
-            <h1 class="title">SERIESII</h1>
+            <h1 class="title">seriesii</h1>
             
             <div class="location-wrapper">
                 <div class="location">
