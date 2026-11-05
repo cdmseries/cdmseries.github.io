@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>seriesii</title>
-    <!-- Imported Silkscreen for pixel title and Inter for clean location text -->
-    <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Loaded Impact / Heavy Sans-Serif font -->
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <style>
         * {
             box-sizing: border-box;
@@ -53,18 +53,19 @@
             margin-top: 10px;
         }
 
-        /* --- HIGH FREQUENCY WAVE DISTORTION TITLE --- */
+        /* --- HEAVY SANS-SERIF WITH HIGH-FREQ WAVE DISTORTION --- */
         .title {
-            font-family: 'Silkscreen', monospace;
-            font-size: 38px;
-            font-weight: 700;
+            font-family: 'Anton', sans-serif;
+            font-size: 42px;
+            font-weight: 400;
+            text-transform: uppercase;
             color: #ff0000;
-            letter-spacing: -1.5px;
+            letter-spacing: 2px;
             line-height: 1;
             user-select: none;
             /* Applies the dynamic SVG high-frequency turbulence wave */
             filter: url(#wave-distortion);
-            /* Small continuous jitter animation */
+            /* Small continuous micro-jitter */
             animation: micro-jitter 0.15s infinite alternate;
         }
 
@@ -98,7 +99,6 @@
             width: 16px;
             height: 16px;
             fill: #ff0000;
-            /* Soft red halo glow on the pin */
             filter: drop-shadow(0 0 6px rgba(255, 0, 0, 0.8));
         }
 
@@ -212,22 +212,19 @@
 </head>
 <body>
 
-    <!-- SVG Displacement Filter for High-Frequency Horizontal Distortion -->
+    <!-- SVG Displacement Filter for High-Frequency Wave Distortion -->
     <svg style="position: absolute; width: 0; height: 0;" aria-hidden="true">
         <filter id="wave-distortion">
-            <!-- baseFrequency controls wave density (X=0.01 Y=0.35 gives high horizontal ripple frequency) -->
-            <!-- numOctaves increases noise detail -->
             <feTurbulence type="fractalNoise" baseFrequency="0.01 0.35" numOctaves="2" result="noise">
                 <animate attributeName="baseFrequency" dur="0.2s" values="0.01 0.35;0.01 0.45;0.01 0.30;0.01 0.35" repeatCount="indefinite" />
             </feTurbulence>
-            <!-- scale controls the wave amplitude distortion -->
-            <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R" yChannelSelector="G" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G" />
         </filter>
     </svg>
 
     <div class="card">
         <div class="center-content">
-            <h1 class="title">seriesii</h1>
+            <h1 class="title">SERIESII</h1>
             
             <div class="location-wrapper">
                 <div class="location">
