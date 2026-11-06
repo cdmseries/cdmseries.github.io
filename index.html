@@ -3,17 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EZ3QDGZDPT"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-EZ3QDGZDPT');
-    </script>
-    
     <title>seriesii</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
     <style>
@@ -63,7 +52,7 @@
             margin-top: 4px;
         }
 
-        /* --- STATIC TITLE WITH TECH WAVE DISPLACEMENT --- */
+        /* --- TITLE & CONDITIONAL DISTORTION CLASS --- */
         .title {
             font-family: 'Space Grotesk', sans-serif;
             font-size: 28px;
@@ -72,7 +61,11 @@
             letter-spacing: -0.5px;
             line-height: 1;
             user-select: none;
-            /* Applies the horizontal wave distortion filter */
+            transition: filter 0.3s ease;
+        }
+
+        /* Active class applied only when music plays */
+        .title.distorted {
             filter: url(#tech-wave-filter);
         }
 
@@ -217,7 +210,6 @@
     <!-- SVG Tech Wave Filter -->
     <svg style="position: absolute; width: 0; height: 0;" aria-hidden="true">
         <filter id="tech-wave-filter" x="-20%" y="-20%" width="140%" height="140%">
-            <!-- Tight horizontal frequency (0.01 X) with high vertical wave count (0.5 Y) -->
             <feTurbulence type="fractalNoise" baseFrequency="0.01 0.5" numOctaves="1" result="waveNoise">
                 <animate 
                     attributeName="baseFrequency" 
@@ -225,14 +217,14 @@
                     values="0.01 0.45; 0.01 0.60; 0.01 0.35; 0.01 0.50" 
                     repeatCount="indefinite" />
             </feTurbulence>
-            <!-- High displacement along horizontal axis (R channel) -->
             <feDisplacementMap in="SourceGraphic" in2="waveNoise" scale="8" xChannelSelector="R" yChannelSelector="B" />
         </filter>
     </svg>
 
     <div class="card">
         <div class="center-content">
-            <h1 class="title">seriesii</h1>
+            <!-- Title starts clean and static -->
+            <h1 class="title" id="mainTitle">seriesii</h1>
             
             <div class="location-wrapper">
                 <div class="location">
@@ -273,7 +265,7 @@
 
     <script>
         // Dynamic Live Counter Effect
-        let currentCount = 67;
+        let currentCount = 0;
         const countElement = document.getElementById('count');
 
         function updateViewers() {
@@ -287,11 +279,12 @@
 
         setTimeout(updateViewers, 4000);
 
-        // Audio Play/Pause Toggle Logic
+        // Audio Play/Pause Toggle & Distortion State Logic
         const audio = document.getElementById('bgAudio');
         const toggleBtn = document.getElementById('audioToggle');
         const playIcon = document.getElementById('playIcon');
         const audioLabel = document.getElementById('audioLabel');
+        const mainTitle = document.getElementById('mainTitle');
         
         let isPlaying = false;
 
@@ -301,6 +294,8 @@
                     isPlaying = true;
                     audioLabel.textContent = "pause audio";
                     playIcon.innerHTML = '<rect x="6" y="4" width="3" height="16"></rect><rect x="15" y="4" width="3" height="16"></rect>';
+                    // Turn on wave distortion when audio plays
+                    mainTitle.classList.add('distorted');
                 }).catch(e => {
                     console.error("Playback failed:", e);
                     alert("Unable to play audio. Ensure 'dirtymagazines.mp3' is uploaded in your repository root.");
@@ -310,6 +305,8 @@
                 isPlaying = false;
                 audioLabel.textContent = "play audio";
                 playIcon.innerHTML = '<polygon points="5,3 19,12 5,21"></polygon>';
+                // Remove wave distortion when audio pauses
+                mainTitle.classList.remove('distorted');
             }
         });
     </script>
