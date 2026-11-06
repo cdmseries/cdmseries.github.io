@@ -52,7 +52,7 @@
             margin-top: 4px;
         }
 
-        /* --- TITLE & CONDITIONAL DISTORTION --- */
+        /* --- TITLE --- */
         .title {
             font-family: 'Space Grotesk', sans-serif;
             font-size: 28px;
@@ -61,20 +61,20 @@
             letter-spacing: -0.5px;
             line-height: 1;
             user-select: none;
-            transition: filter 0.3s ease;
+            transition: filter 0.2s ease;
         }
 
+        /* --- GLOBAL DISTORTION CLASS --- */
         .distorted {
-            filter: url(#tech-wave-filter);
+            filter: url(#tech-wave-filter) !important;
         }
 
-        /* --- LOCATION WITH HOVER TOOLTIP & DISTORTION SUPPORT --- */
+        /* --- LOCATION WITH HOVER TOOLTIP --- */
         .location-wrapper {
             position: relative;
             display: inline-block;
             margin-top: 10px;
             cursor: pointer;
-            transition: filter 0.3s ease;
         }
 
         .location {
@@ -87,6 +87,7 @@
             font-weight: 400;
             letter-spacing: 0.2px;
             opacity: 0.9;
+            transition: filter 0.2s ease;
         }
 
         .location svg {
@@ -133,7 +134,7 @@
             transform: translateX(-50%) translateY(0);
         }
 
-        /* --- FOOTER & AUDIO CONTROLS --- */
+        /* --- FOOTER, VIEWERS & AUDIO CONTROLS --- */
         .footer {
             width: 100%;
             display: flex;
@@ -148,6 +149,7 @@
             color: #ff0000;
             font-size: 11px;
             font-weight: 600;
+            transition: filter 0.2s ease;
         }
 
         .red-dot {
@@ -182,7 +184,7 @@
             padding: 3px 10px;
             border-radius: 16px;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.2s ease, filter 0.2s ease;
         }
 
         .audio-player:hover {
@@ -225,8 +227,8 @@
         <div class="center-content">
             <h1 class="title" id="mainTitle">seriesii</h1>
             
-            <div class="location-wrapper" id="locationWrapper">
-                <div class="location">
+            <div class="location-wrapper">
+                <div class="location" id="locationText">
                     <svg viewBox="0 0 24 24">
                         <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
                     </svg>
@@ -239,7 +241,7 @@
         </div>
 
         <div class="footer">
-            <div class="viewers">
+            <div class="viewers" id="viewersWrapper">
                 <span class="red-dot"></span>
                 <svg class="eye-icon" viewBox="0 0 24 24">
                     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
@@ -284,7 +286,8 @@
         const playIcon = document.getElementById('playIcon');
         const audioLabel = document.getElementById('audioLabel');
         const mainTitle = document.getElementById('mainTitle');
-        const locationWrapper = document.getElementById('locationWrapper');
+        const locationText = document.getElementById('locationText');
+        const viewersWrapper = document.getElementById('viewersWrapper');
         
         let isPlaying = false;
 
@@ -294,9 +297,12 @@
                     isPlaying = true;
                     audioLabel.textContent = "pause audio";
                     playIcon.innerHTML = '<rect x="6" y="4" width="3" height="16"></rect><rect x="15" y="4" width="3" height="16"></rect>';
-                    // Trigger distortion on both title and location
+                    
+                    // Apply distortion filter to title, location, viewer tag, and button
                     mainTitle.classList.add('distorted');
-                    locationWrapper.classList.add('distorted');
+                    locationText.classList.add('distorted');
+                    viewersWrapper.classList.add('distorted');
+                    toggleBtn.classList.add('distorted');
                 }).catch(e => {
                     console.error("Playback failed:", e);
                     alert("Unable to play audio. Ensure 'dirtymagazines.mp3' is uploaded in your repository root.");
@@ -306,9 +312,12 @@
                 isPlaying = false;
                 audioLabel.textContent = "play audio";
                 playIcon.innerHTML = '<polygon points="5,3 19,12 5,21"></polygon>';
-                // Remove distortion from both
+                
+                // Remove distortion filter from all elements
                 mainTitle.classList.remove('distorted');
-                locationWrapper.classList.remove('distorted');
+                locationText.classList.remove('distorted');
+                viewersWrapper.classList.remove('distorted');
+                toggleBtn.classList.remove('distorted');
             }
         });
     </script>
