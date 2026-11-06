@@ -52,7 +52,7 @@
             margin-top: 4px;
         }
 
-        /* --- TITLE & CONDITIONAL DISTORTION CLASS --- */
+        /* --- TITLE & CONDITIONAL DISTORTION --- */
         .title {
             font-family: 'Space Grotesk', sans-serif;
             font-size: 28px;
@@ -64,17 +64,17 @@
             transition: filter 0.3s ease;
         }
 
-        /* Active class applied only when music plays */
-        .title.distorted {
+        .distorted {
             filter: url(#tech-wave-filter);
         }
 
-        /* --- LOCATION WITH HOVER TOOLTIP --- */
+        /* --- LOCATION WITH HOVER TOOLTIP & DISTORTION SUPPORT --- */
         .location-wrapper {
             position: relative;
             display: inline-block;
             margin-top: 10px;
             cursor: pointer;
+            transition: filter 0.3s ease;
         }
 
         .location {
@@ -223,10 +223,9 @@
 
     <div class="card">
         <div class="center-content">
-            <!-- Title starts clean and static -->
             <h1 class="title" id="mainTitle">seriesii</h1>
             
-            <div class="location-wrapper">
+            <div class="location-wrapper" id="locationWrapper">
                 <div class="location">
                     <svg viewBox="0 0 24 24">
                         <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
@@ -285,6 +284,7 @@
         const playIcon = document.getElementById('playIcon');
         const audioLabel = document.getElementById('audioLabel');
         const mainTitle = document.getElementById('mainTitle');
+        const locationWrapper = document.getElementById('locationWrapper');
         
         let isPlaying = false;
 
@@ -294,8 +294,9 @@
                     isPlaying = true;
                     audioLabel.textContent = "pause audio";
                     playIcon.innerHTML = '<rect x="6" y="4" width="3" height="16"></rect><rect x="15" y="4" width="3" height="16"></rect>';
-                    // Turn on wave distortion when audio plays
+                    // Trigger distortion on both title and location
                     mainTitle.classList.add('distorted');
+                    locationWrapper.classList.add('distorted');
                 }).catch(e => {
                     console.error("Playback failed:", e);
                     alert("Unable to play audio. Ensure 'dirtymagazines.mp3' is uploaded in your repository root.");
@@ -305,8 +306,9 @@
                 isPlaying = false;
                 audioLabel.textContent = "play audio";
                 playIcon.innerHTML = '<polygon points="5,3 19,12 5,21"></polygon>';
-                // Remove wave distortion when audio pauses
+                // Remove distortion from both
                 mainTitle.classList.remove('distorted');
+                locationWrapper.classList.remove('distorted');
             }
         });
     </script>
